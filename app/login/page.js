@@ -1,5 +1,6 @@
+"use client"
 import React from 'react'
-
+import { useSession, signIn, signOut } from "next-auth/react"
 const Login = () => {
   return (
     <div className="text-white py-14 container mx-auto">
@@ -106,7 +107,7 @@ const Login = () => {
     </button>
 
     
-    <button
+    <button onClick={() => {signIn("github")}}
       className="w-full flex items-center justify-center rounded-2xl shadow-lg dark:shadow-gray-900/40 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0
       bg-gray-900 hover:bg-black border-2 border-black text-white dark:bg-gray-800 dark:hover:bg-black dark:border-gray-700 group"
     >
