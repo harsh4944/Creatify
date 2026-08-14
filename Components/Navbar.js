@@ -5,18 +5,13 @@ import Link from 'next/link'
 const Navbar = () => {
   const { data: session } = useSession()
   const [showdropdown, setShowdropdown] = useState(false)
-  // if(session) {
-  //   return <>
-  //     Signed in as {session.user.email} <br/>
-  //     <button onClick={() => signOut()}>Sign out</button>
-  //   </>
-  // }
+  
   return (
     <nav className="bg-gray-950 text-white flex justify-between px-4 h-16 items-center">
-      <div className="logo font-bold text-lg flex justify-center items-center ">
-        <img src="/chai.gif" width={34} alt="" />
-        <span>Get Me a Chai !</span>
-        </div>
+        <Link className="logo font-bold text-lg flex justify-center items-center" href={"/"}>
+          <img className='invertImg' src="/chai.gif" width={34} alt="" />
+          <span>Get Me a Chai !</span>
+        </Link>
       {/* <ul className='flex justify-between gap-4'>
         <li>Home</li>
         <li>About</li>
@@ -26,7 +21,8 @@ const Navbar = () => {
       </ul> */}
 
       <div className="relative inline-block">
-        {session && <><button onClick={() => setShowdropdown(!showdropdown)} id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" className="inline-flex items-center justify-center text-white bg-blue-700  box-border rounded-lg border border-transparent hover:bg-blue-strong focus:ring-4 focus:outline-none focus:ring-blue-400 dark:focus:ring-blue-900 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" type="button">
+        {session && <><button onClick={() => setShowdropdown(!showdropdown)}  id="dropdownHoverButton" onBlur={() => {
+  setTimeout(() => {setShowdropdown(false)}, 100)}} data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" className="inline-flex items-center justify-center text-white bg-blue-700  box-border rounded-lg border border-transparent hover:bg-blue-strong focus:ring-4 focus:outline-none focus:ring-blue-400 dark:focus:ring-blue-900 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" type="button">
   Welcome {session.user.email} 
   <svg className="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 9-7 7-7-7"/></svg>
 </button>
@@ -38,11 +34,7 @@ const Navbar = () => {
       </li>
       <li>
         <Link href="/settings" onClick={() => setShowdropdown(false)}
-  className="block w-full p-2 text-white hover:bg-gray-700 rounded cursor-pointer">Settings</Link>
-      </li>
-      <li>
-        <Link href="/earnings" onClick={() => setShowdropdown(false)}
-  className="block w-full p-2 text-white hover:bg-gray-700 rounded cursor-pointer">Earnings</Link>
+  className="block w-full p-2 text-white hover:bg-gray-700 rounded cursor-pointer">Your Page</Link>
       </li>
       <li>
         <button className='inline-flex items-center w-full p-2 hover:bg-gray-700 rounded cursor-pointer' onClick={() => signOut()}> Sign out</button>
