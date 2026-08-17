@@ -33,7 +33,7 @@ const Navbar = () => {
   className="block w-full p-2 text-white hover:bg-gray-700 rounded cursor-pointer">Dashboard</Link>
       </li>
       <li>
-        <Link href="/settings" onClick={() => setShowdropdown(false)}
+        <Link href={`/${session.user.name}`} onClick={() => setShowdropdown(false)}
   className="block w-full p-2 text-white hover:bg-gray-700 rounded cursor-pointer">Your Page</Link>
       </li>
       <li>
