@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Script from "next/script";
-import { initiate } from "@/actions/useractions";
 import { useSession } from "next-auth/react";
+import { fetchData } from "next-auth/client/_utils";
+import { fetchuser, fetchpayments, initiate } from "@/actions/useractions";
 
 const PaymentPage = ({ username }) => {
   const [paymentform, setPaymentform] = useState({
@@ -11,6 +12,13 @@ const PaymentPage = ({ username }) => {
     message: "",
     amount: "",
   });
+  const [currentUser, setcurrentUser]= useState({})
+  const [payments, setPayments]= useState([])
+
+  useEffect(() =>{
+    getData()
+  }, [])
+
 
   const { data: session } = useSession();
 
@@ -20,6 +28,14 @@ const PaymentPage = ({ username }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+const getData = async (params)=>{
+let  u = await fetchuser(username)
+setcurrentUser(u)
+let dbpayments = await fetchpayments(username)
+setPayments(dbpayments)
+}
+
 
   const pay = async (amount) => {
   const order = await initiate(amount, username, paymentform);
@@ -40,7 +56,7 @@ const PaymentPage = ({ username }) => {
     description: "Support Payment",
 
     order_id: order.id,
-    callback_url: `${process.env.URL}/api/razorpay`,
+    callback_url: `${process.env.NEXT_PUBLIC_URL}/api/razorpay`,
 
     prefill: {
       name: paymentform.name,
@@ -55,11 +71,6 @@ const PaymentPage = ({ username }) => {
     theme: {
       color: "#3399cc",
     },
-
-    // handler: function (response) {
-    //   console.log("Payment Success:", response);
-    //   alert("Payment Successful!");
-    // },
   };
 
   const rzp1 = new window.Razorpay(options);
@@ -118,50 +129,26 @@ const PaymentPage = ({ username }) => {
             </h2>
 
             <ul className="mx-5 text-lg">
-              <li className="my-4 flex gap-2 items-center">
-                <img
-                  width={33}
-                  src="person.gif"
-                  alt="user avatar"
-                />
+  {payments.map((p, i) => {
+    return (
+      <li key={i} className="my-4 flex gap-2 items-center">
+        <img
+          width={33}
+          src="/person.gif"
+          alt="user avatar"
+        />
 
-                <span>
-                  Shubham donated
-                  <span className="font-bold"> $5</span> with a message
-                  &quot;I support you bro. Lots of ❤️&quot;
-                </span>
-              </li>
-
-              <li className="my-4 flex gap-2 items-center">
-                <img
-                  width={33}
-                  src="person.gif"
-                  alt="user avatar"
-                />
-
-                <span>
-                  Shubham donated
-                  <span className="font-bold"> $5</span> with a message
-                  &quot;I support you bro. Lots of ❤️&quot;
-                </span>
-              </li>
-
-              <li className="my-4 flex gap-2 items-center">
-                <img
-                  width={33}
-                  src="person.gif"
-                  alt="user avatar"
-                />
-
-                <span>
-                  Shubham donated
-                  <span className="font-bold"> $5</span> with a message
-                  &quot;I support you bro. Lots of ❤️&quot;
-                </span>
-              </li>
-            </ul>
-          </div>
-
+        <span>
+          {p.name} donated{" "}
+          <span className="font-bold">₹{p.amount}</span>{" "}
+          with a message{" "}
+          &quot;{p.message}&quot;
+        </span>
+      </li>
+    )
+  })}
+</ul>
+</div>
           {/* Payment */}
           <div className="makepayment w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">
@@ -199,12 +186,12 @@ const PaymentPage = ({ username }) => {
 
               {/* Pay entered amount */}
               <button
-                type="button"
-                onClick={() => pay()}
-                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-lg"
-              >
-                Pay
-              </button>
+  type="button"
+  onClick={() => pay(Number(paymentform.amount))}
+  className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-lg"
+>
+  Pay
+</button>
             </div>
 
             {/* Choose Amount */}
