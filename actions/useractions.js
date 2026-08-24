@@ -14,7 +14,7 @@ export const initiate = async (amount, to_username, paymentform) => {
   });
 
   const options = {
-    amount: Number.parseInt(amount),
+    amount: Math.round(Number(amount) * 100),
     currency: "INR",
     receipt: `receipt_${Date.now()}`,
   };
@@ -47,10 +47,12 @@ export const fetchuser = async (username) => {
 
   return userData
 }
+
+
 export const fetchpayments = async (username) => {
   await connectDB()
 
-  const p = await Payment.find({ to_user: username })
+  const p = await Payment.find({ to_user: username, done:true })
     .sort({ amount: -1 })
     .lean()
 
@@ -60,4 +62,19 @@ export const fetchpayments = async (username) => {
     createdAt: payment.createdAt?.toISOString(),
     updatedAt: payment.updatedAt?.toISOString(),
   }))
+}
+
+export const updateProfle= async (data, oldusername)=>{
+  await connectDB()
+  let ndata = Object.fromEntries(data)
+
+  if(oldusername !== ndata.username){
+    let u = await User.findOne({ username: ndata.username})
+    if(u){
+      return { error: " Username already exists"}
+
+    }
+  }
+  await User.updateOne({ email: ndata.email}, ndata)
+
 }

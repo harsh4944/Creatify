@@ -3,17 +3,32 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { fetchuser, updateProfle } from "@/actions/useractions";
 
 const Dashboard = () => {
-  const { data: session } = useSession();
+  const { data: session, update, status } = useSession();
   const router = useRouter();
   const [form, setform] = useState({})
 
   useEffect(() => {
-    if (!session) {
-      router.push("/login");
-    }
-  }, [session, router]);
+  if (status === "loading") return;
+
+  if (status === "unauthenticated") {
+    router.push("/login");
+    return;
+  }
+
+  if (status === "authenticated") {
+    getData();
+  }
+}, [status, session, router]);
+
+  const getData = async () => {
+  if (!session?.user?.name) return;
+
+  const u = await fetchuser(session.user.name);
+  setform(u);
+};
 
  const handleChange = (e) => {
   setform({
@@ -22,11 +37,19 @@ const Dashboard = () => {
   });
 };
 
+const handleSubmit= async (e) =>{
+    update()
+    let a = await updateProfle(e, session.user.name)
+    alert("Profile Updated")
+}
+
+
+
   return (
     <div className='container mx-auto py-5 px-6 '>
                 <h1 className='text-center my-5 text-3xl font-bold'>Welcome to your Dashboard</h1>
 
-                <form className="max-w-2xl mx-auto" >
+                <form className="max-w-2xl mx-auto" action={handleSubmit}>
 
                     <div className='my-2'>
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>

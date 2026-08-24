@@ -5,22 +5,38 @@ import Script from "next/script";
 import { useSession } from "next-auth/react";
 import { fetchData } from "next-auth/client/_utils";
 import { fetchuser, fetchpayments, initiate } from "@/actions/useractions";
+import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.shared-runtime";
+import { useSearchParams } from "next/navigation";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PaymentPage = ({ username }) => {
+  const { data: session } = useSession();
   const [paymentform, setPaymentform] = useState({
     name: "",
     message: "",
     amount: "",
   });
+  
   const [currentUser, setcurrentUser]= useState({})
   const [payments, setPayments]= useState([])
+  const searchParams = useSearchParams()
 
   useEffect(() =>{
     getData()
-  }, [])
+  }, []);
 
-
-  const { data: session } = useSession();
+  useEffect(() => {
+  if (searchParams.get("paymentdone") === "true") {
+    toast.success("Thanks For Your Donation!", {
+      position: "top-right",
+      autoClose: 5000,
+      theme: "light",
+      transition: Bounce,
+    });
+  }
+}, [searchParams]);
+  
 
   const handleChange = (e) => {
     setPaymentform({
@@ -48,7 +64,7 @@ setPayments(dbpayments)
   }
 
   const options = {
-    key: order.key_id,
+    key: currentUser.razorpayid,
     amount: order.amount,
     currency: order.currency,
 
@@ -84,6 +100,17 @@ setPayments(dbpayments)
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"/>
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="afterInteractive"
@@ -92,17 +119,17 @@ setPayments(dbpayments)
       {/* Cover Image */}
       <div className="cover w-full bg-red-50 relative">
         <img
-          className="object-cover w-full h-[350px]"
-          src="https://c10.patreonusercontent.com/4/patreon-media/p/campaign/4842667/452146dcfeb04f38853368f554aadde1/eyJ3IjoxNjAwLCJ3ZSI6MX0%3D/20.gif?token-hash=Q7kaA9Dnt4TnOtJ-3eyjCar55CnseIIIr6s38YDnNxM%3D&token-time=1788480000"
+          className="object-cover w-full h-[350]"
+          src={currentUser.coverpic}
           alt=""
         />
 
-        <div className="absolute -bottom-20 right-[45%] border-white border-2 rounded-full">
+        <div className="absolute -bottom-20 right-[45%] border-white border-2 rounded-full size-32 overflow-hidden">
           <img
-            className="rounded-full"
-            width={150}
-            height={150}
-            src="https://c10.patreonusercontent.com/4/patreon-media/p/campaign/688268/58038c0493a24f549304aaaac67cc71b/eyJoIjozNjAsInciOjM2MH0%3D/3.jpeg?token-hash=mzlv0zlLWkaKumpeurZ_TXqYo8c6OJcqu2r5nPE87OM%3D&token-time=1787961600"
+            className="object-cover size-32 rounded-full"
+            width={128}
+            height={128}
+            src={currentUser.profilepic}
             alt=""
           />
         </div>
@@ -121,42 +148,31 @@ setPayments(dbpayments)
         </div>
 
         <div className="payment flex gap-3 w-[80%] mt-11">
-
           {/* Supporters */}
           <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
-            <h2 className="text-2xl font-bold">
-              Supporters
-            </h2>
-
+            <h2 className="text-2xl font-bold my-5">Supporters</h2>
             <ul className="mx-5 text-lg">
-  {payments.map((p, i) => {
-    return (
-      <li key={i} className="my-4 flex gap-2 items-center">
-        <img
-          width={33}
-          src="/person.gif"
-          alt="user avatar"
-        />
+              {payments.length == 0 && <li> No payments yet</li>}
+              {payments.map((p, i) => {
+                return (
+                  <li key={i} className="my-4 flex gap-2 items-center">
+                    <img width={33} src="/person.gif" alt="user avatar" />
 
-        <span>
-          {p.name} donated{" "}
-          <span className="font-bold">₹{p.amount}</span>{" "}
-          with a message{" "}
-          &quot;{p.message}&quot;
-        </span>
-      </li>
-    )
-  })}
-</ul>
-</div>
+                    <span>
+                      {p.name} donated{" "}
+                      <span className="font-bold">₹{p.amount}</span> with a
+                      message &quot;{p.message}&quot;
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           {/* Payment */}
           <div className="makepayment w-1/2 bg-slate-900 rounded-lg text-white p-10">
-            <h2 className="text-2xl font-bold my-5">
-              Make Payment
-            </h2>
+            <h2 className="text-2xl font-bold my-5">Make Payment</h2>
 
             <div className="flex flex-col gap-2">
-
               <input
                 name="name"
                 onChange={handleChange}
@@ -186,38 +202,40 @@ setPayments(dbpayments)
 
               {/* Pay entered amount */}
               <button
-  type="button"
-  onClick={() => pay(Number(paymentform.amount))}
-  className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-lg"
->
-  Pay
-</button>
+                type="button"
+                onClick={() => pay(Number(paymentform.amount))}
+                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-lg disabled:bg-slate-600 disabled:from-purple-100"
+                disabled={
+                  paymentform.name?.length < 3 ||
+                  paymentform.message?.length < 4
+                }
+              >
+                Pay
+              </button>
             </div>
 
             {/* Choose Amount */}
             <div className="flex gap-3 mt-5">
-
               <button
                 className="bg-slate-800 p-2 rounded-lg"
-                onClick={() => pay(1000)}
+                onClick={() => pay(10)}
               >
                 ₹10
               </button>
 
               <button
                 className="bg-slate-800 p-2 rounded-lg"
-                onClick={() => pay(2500)}
+                onClick={() => pay(25)}
               >
                 ₹25
               </button>
 
               <button
                 className="bg-slate-800 p-2 rounded-lg"
-                onClick={() => pay(5000)}
+                onClick={() => pay(50)}
               >
                 ₹50
               </button>
-
             </div>
           </div>
         </div>
