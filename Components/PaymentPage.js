@@ -9,6 +9,7 @@ import { SearchParamsContext } from "next/dist/shared/lib/hooks-client-context.s
 import { useSearchParams } from "next/navigation";
 import { ToastContainer, toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { notFound } from "next/navigation";
 
 const PaymentPage = ({ username }) => {
   const { data: session } = useSession();
@@ -56,7 +57,7 @@ setPayments(dbpayments)
   const pay = async (amount) => {
   const order = await initiate(amount, username, paymentform);
 
-  console.log("Order:", order);
+  
 
   if (!order?.id) {
     alert("Order creation failed");
@@ -98,6 +99,8 @@ setPayments(dbpayments)
   rzp1.open();
 };
 
+
+
   return (
     <>
       <ToastContainer
@@ -124,9 +127,9 @@ setPayments(dbpayments)
           alt=""
         />
 
-        <div className="absolute -bottom-20 right-[45%] border-white border-2 rounded-full size-32 overflow-hidden">
+        <div className="absolute -bottom-20 right-[45%] border-white border-2 rounded-full size-36 overflow-hidden">
           <img
-            className="object-cover size-32 rounded-full"
+            className="object-cover size-36 rounded-full"
             width={128}
             height={128}
             src={currentUser.profilepic}
@@ -140,17 +143,17 @@ setPayments(dbpayments)
         <div className="text-lg font-bold">@{username}</div>
 
         <div className="text-slate-400">
-          Creating Animated art for VTT&apos;s
+         Lets help {username} get a chai
         </div>
 
         <div className="text-slate-400">
-          26,626 members . 113 posts . $16,680/release
+          {payments.length} Payments . {currentUser.name} ₹{payments.reduce((a,b) => a+b.amount, 0)} raised
         </div>
 
         <div className="payment flex gap-3 w-[80%] mt-11">
           {/* Supporters */}
           <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
-            <h2 className="text-2xl font-bold my-5">Supporters</h2>
+            <h2 className="text-2xl font-bold my-5">Top 5 Supporters</h2>
             <ul className="mx-5 text-lg">
               {payments.length == 0 && <li> No payments yet</li>}
               {payments.map((p, i) => {
@@ -207,7 +210,7 @@ setPayments(dbpayments)
                 className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 rounded-lg disabled:bg-slate-600 disabled:from-purple-100"
                 disabled={
                   paymentform.name?.length < 3 ||
-                  paymentform.message?.length < 4
+                  paymentform.message?.length < 4 || paymentform.amount?.length<1
                 }
               >
                 Pay
