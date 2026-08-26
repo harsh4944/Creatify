@@ -7,20 +7,13 @@ const Navbar = () => {
   const [showdropdown, setShowdropdown] = useState(false)
   
   return (
-    <nav className="bg-gray-950 text-white flex justify-between px-4 h-16 items-center">
+    <nav className="bg-gray-950 text-white flex justify-between px-4 md:h-16 items-center md:flex-row ">
         <Link className="logo font-bold text-lg flex justify-center items-center" href={"/"}>
           <img className='invertImg' src="/chai.gif" width={34} alt="" />
-          <span>Get Me a Chai !</span>
+          <span className='text-xl md:text-base my-3 md:my-0'>Get Me a Chai !</span>
         </Link>
-      {/* <ul className='flex justify-between gap-4'>
-        <li>Home</li>
-        <li>About</li>
-        <li>Projects</li>
-        <li>Sign Up</li>
-        <li>Login </li>
-      </ul> */}
 
-      <div className="relative inline-block">
+      <div className="relative flex flex-col md:block gap-4 ">
         {session && <><button onClick={() => setShowdropdown(!showdropdown)}  id="dropdownHoverButton" onBlur={() => {
   setTimeout(() => {setShowdropdown(false)}, 100)}} data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" className="inline-flex items-center justify-center text-white bg-blue-700  box-border rounded-lg border border-transparent hover:bg-blue-strong focus:ring-4 focus:outline-none focus:ring-blue-400 dark:focus:ring-blue-900 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none" type="button">
   Welcome {session.user.email} 

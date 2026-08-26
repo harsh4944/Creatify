@@ -122,12 +122,12 @@ setPayments(dbpayments)
       {/* Cover Image */}
       <div className="cover w-full bg-red-50 relative">
         <img
-          className="object-cover w-full h-[350]"
+          className="object-cover w-full h-48 md:h-[350]"
           src={currentUser.coverpic}
           alt=""
         />
 
-        <div className="absolute -bottom-20 right-[45%] border-white border-2 rounded-full size-36 overflow-hidden">
+        <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 border-white border-2 rounded-full size-36 overflow-hidden">
           <img
             className="object-cover size-36 rounded-full"
             width={128}
@@ -139,7 +139,7 @@ setPayments(dbpayments)
       </div>
 
       {/* User Info */}
-      <div className="info flex justify-center items-center my-24 mb-32 flex-col gap-2">
+      <div className="info flex  justify-center items-center my-24 mb-32 flex-col gap-2">
         <div className="text-lg font-bold">@{username}</div>
 
         <div className="text-slate-400">
@@ -150,9 +150,9 @@ setPayments(dbpayments)
           {payments.length} Payments . {currentUser.name} ₹{payments.reduce((a,b) => a+b.amount, 0)} raised
         </div>
 
-        <div className="payment flex gap-3 w-[80%] mt-11">
+        <div className="payment flex gap-3 w-[80%] mt-11 flex-col md:flex-row">
           {/* Supporters */}
-          <div className="supporters w-1/2 bg-slate-900 rounded-lg text-white p-10">
+          <div className="supporters w-full md:w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">Top 5 Supporters</h2>
             <ul className="mx-5 text-lg">
               {payments.length == 0 && <li> No payments yet</li>}
@@ -172,7 +172,7 @@ setPayments(dbpayments)
             </ul>
           </div>
           {/* Payment */}
-          <div className="makepayment w-1/2 bg-slate-900 rounded-lg text-white p-10">
+          <div className="makepayment  w-full md:w-1/2 bg-slate-900 rounded-lg text-white p-10">
             <h2 className="text-2xl font-bold my-5">Make Payment</h2>
 
             <div className="flex flex-col gap-2">
@@ -218,7 +218,7 @@ setPayments(dbpayments)
             </div>
 
             {/* Choose Amount */}
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-col md:flex-row gap-3 mt-5">
               <button
                 className="bg-slate-800 p-2 rounded-lg"
                 onClick={() => pay(10)}
