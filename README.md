@@ -14,17 +14,17 @@ Creators can connect their Razorpay credentials and receive direct financial sup
 ## Features
 
 - Public landing page with links to login and the about page.
-- GitHub sign-in through NextAuth.
-- Automatic user creation on a user's first successful GitHub sign-in.
-- Creator dashboard for editing name, username, profile image URL, cover image URL, and Razorpay credentials.
+- GitHub authentication through NextAuth.
+- Automatic user creation after a user's first successful GitHub sign-in.
+- Creator dashboard for editing name, username, profile image, cover image, and Razorpay credentials.
 - Public creator pages at `/<username>`.
-- Razorpay checkout with custom amount, preset amounts of INR 10, INR 25, and INR 50, donor name, and message.
-- Payment verification through the Razorpay callback route.
-- Public display of the five completed payments with the highest amounts and the total amount raised.
+- Razorpay checkout with custom contribution amounts and preset amounts of INR 10, INR 25, and INR 50.
+- Supporters can enter their name and a personal message.
+- Server-side payment verification through the Razorpay callback route.
+- Public display of the five highest completed contributions and the total amount raised.
 - Automatic redirection to the creator page after successful payment verification.
-- Toast notifications for profile updates and successful donations.
-
-The login page currently renders buttons for Google, LinkedIn, X, Facebook, GitHub, and Apple, but only the GitHub button calls `signIn("github")` in the current implementation.
+- Toast notifications for profile updates and successful contributions.
+The login page currently renders buttons for Google, LinkedIn, Facebook, GitHub, but only the GitHub button calls `signIn("github")` in the current implementation.
 
 ## Tech Stack
 
