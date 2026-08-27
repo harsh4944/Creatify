@@ -26,6 +26,10 @@ Creators can connect their Razorpay credentials and receive direct financial sup
 - Toast notifications for profile updates and successful contributions.
 The login page currently renders buttons for Google, LinkedIn, Facebook, GitHub, but only the GitHub button calls `signIn("github")` in the current implementation.
 
+## Demo Video
+
+🎥 [Watch Creatify Demo on YouTube](https://youtu.be/2u_5s0-fFVQ?si=pH-l9jqhjlZd5eEu)
+
 ## Tech Stack
 
 | Area | Technology |
