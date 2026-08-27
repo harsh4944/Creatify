@@ -69,7 +69,7 @@ setPayments(dbpayments)
     amount: order.amount,
     currency: order.currency,
 
-    name: "Get Me A Chai",
+    name: "Creatify",
     description: "Support Payment",
 
     order_id: order.id,
@@ -143,7 +143,7 @@ setPayments(dbpayments)
         <div className="text-lg font-bold">@{username}</div>
 
         <div className="text-slate-400">
-         Lets help {username} get a chai
+         Lets help {username} bring their project to life
         </div>
 
         <div className="text-slate-400">

@@ -10,7 +10,7 @@ const Navbar = () => {
     <nav className="bg-gray-950 text-white flex justify-between px-4 md:h-16 items-center md:flex-row ">
         <Link className="logo font-bold text-lg flex justify-center items-center" href={"/"}>
           <img className='invertImg' src="/chai.gif" width={34} alt="" />
-          <span className='text-xl md:text-base my-3 md:my-0'>Get Me a Chai !</span>
+          <span className='text-xl md:text-base my-3 md:my-0'>Creatify </span>
         </Link>
 
       <div className="relative flex flex-col md:block gap-4 ">

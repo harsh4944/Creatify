@@ -11,7 +11,7 @@ const Login = () => {
 
 
   useEffect(() => {
-    document.title = "Login - Get Me A Chai"
+    document.title = "Login - Creatify"
     if (session) {
       router.push("/dashboard");
     }
@@ -86,22 +86,6 @@ const Login = () => {
     
     <button
       className="w-full flex items-center justify-center rounded-2xl shadow-lg dark:shadow-gray-900/40 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0
-      bg-black hover:bg-gray-900 border-2 border-gray-800 text-white dark:bg-gray-900 dark:hover:bg-black dark:border-gray-700 group"
-    >
-      <svg
-        className="h-6 w-6 mr-3 transition-transform duration-300 group-hover:animate-bounce-icon"
-        xmlnsXlink="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="white"
-      >
-                <path d="M18.244 2H21.5l-7.32 8.366L22 22h-5.99l-4.676-6.07L6.1 22H2.84l7.814-8.937L2 2h6.09l4.219 5.574L18.244 2zM17.18 20h1.65L8.03 4h-1.8l10.95 16z"/>
-      </svg>
-            <span>Continue with X</span>
-    </button>
-
-    
-    <button
-      className="w-full flex items-center justify-center rounded-2xl shadow-lg dark:shadow-gray-900/40 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0
       bg-blue-800 hover:bg-blue-900 border-2 border-blue-900 text-white dark:bg-blue-900 dark:hover:bg-blue-950 group"
     >
       <svg
@@ -140,29 +124,6 @@ const Login = () => {
         </g>
       </svg>
       <span>Continue with Github</span>
-    </button>
-
-    
-    <button
-      className="w-full flex items-center justify-center rounded-2xl shadow-lg dark:shadow-gray-900/40 px-8 py-4 text-base font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl active:translate-y-0
-      bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-800 hover:to-gray-900 border-2 border-gray-900 text-white dark:from-gray-600 dark:to-gray-700 dark:hover:from-gray-700 dark:hover:to-gray-800 group"
-    >
-      <svg
-        className="h-6 w-6 mr-3 transition-transform duration-300 group-hover:animate-bounce-icon"
-        xmlnsXlink="http://www.w3.org/2000/svg"
-        viewBox="-1.5 0 20 20"
-      >
-        <g fill="none" fillRule="evenodd">
-          <g transform="translate(-102 -7439)" fill="#FFF">
-            <g transform="translate(56 160)">
-              <path
-                d="M57.571 7282.193c.729-.845 1.22-2.022 1.086-3.193-1.05.04-2.322.671-3.075 1.515-.676.749-1.267 1.946-1.108 3.094 1.172.087 2.368-.57 3.097-1.416m2.628 7.432c.029 3.027 2.77 4.034 2.801 4.047-.023.071-.438 1.435-1.444 2.845-.87 1.218-1.773 2.431-3.196 2.457-1.397.025-1.847-.818-3.446-.818-1.598 0-2.097.768-3.42.819-1.373.049-2.42-1.318-3.297-2.532-1.793-2.483-3.163-7.017-1.323-10.077.914-1.519 2.547-2.482 4.321-2.506 1.348-.025 2.621.889 3.445.889.824 0 2.371-.984 4.003-.826.68.027 2.592.262 3.819 1.983-.1.059-2.28 1.275-2.256 3.803"
-              />
-            </g>
-          </g>
-        </g>
-      </svg>
-      <span>Continue with Apple</span>
     </button>
   </div>
 </section>

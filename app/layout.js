@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Get Me A Chai - Fund your projects with chai",
-  description: "This website is a crowdfunding platform for creators.",
+  title: "Creatify -  Where Ideas Meet Support",
+  description: "Support creators. Bring ideas to life.",
 };
 
 export default function RootLayout({ children }) {
