@@ -181,25 +181,3 @@ For a deployment that supports Next.js:
 	 ```
 
 6. Ensure the deployed URL can receive Razorpay's callback at `/api/razorpay`.
-
-## Troubleshooting / Common Issues
-
-- **Database connection fails:** Confirm MongoDB is running locally and listening on port `27017`. The current code does not read a MongoDB connection string from an environment variable.
-- **GitHub login fails:** Check `GITHUB_ID` and `GITHUB_SECRET`, and verify the GitHub OAuth application is configured for the current application URL.
-- **Payments cannot be created:** A creator must have a valid Razorpay ID and secret saved in the dashboard. The payment action uses those creator-specific values.
-- **Payment verification redirects incorrectly:** Confirm `NEXT_PUBLIC_URL` includes the correct protocol and host, for example `http://localhost:3000` locally.
-- **The dashboard redirects to login:** The dashboard requires an authenticated NextAuth session. Sign in with the configured GitHub provider first.
-- **A creator page returns not found:** The username must match a `User` document in MongoDB.
-- **Preset payment buttons fail without donor details:** The preset buttons call the payment flow directly, while the custom payment button requires a name of at least three characters and a message of at least four characters.
-
-## Contributing
-
-1. Create a feature branch.
-2. Install dependencies with `npm install`.
-3. Make focused changes consistent with the existing App Router and component structure.
-4. Run `npm run lint` and, when relevant, `npm run build`.
-5. Open a pull request describing the behavior changed and the checks performed.
-
-## License
-
-No license file or license declaration is included in the repository. Contact the project owner before redistributing or using the project outside its intended context.
