@@ -4,6 +4,7 @@ Creatify is a Next.js crowdfunding platform built for creators to fund their pro
 
 Fans can visit a creator's public page, choose a custom or preset contribution amount, add a message, and complete the payment securely through Razorpay. Authenticated creators can manage their profile, payment settings, and creator page from a dedicated dashboard.
 
+
 ## Project Overview
 
 The application uses the Next.js App Router. Creator profiles and payment records are stored in MongoDB. Authentication is handled by NextAuth with GitHub as the configured provider.
