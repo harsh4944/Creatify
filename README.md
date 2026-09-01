@@ -2,6 +2,7 @@
 
 Creatify is a Next.js crowdfunding platform built for creators to fund their projects with direct support from their fans.
 
+
 Fans can visit a creator's public page, choose a custom or preset contribution amount, add a message, and complete the payment securely through Razorpay. Authenticated creators can manage their profile, payment settings, and creator page from a dedicated dashboard.
 
 
