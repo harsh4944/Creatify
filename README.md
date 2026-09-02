@@ -192,3 +192,4 @@ For a deployment that supports Next.js:
 	 ```
 
 6. Ensure the deployed URL can receive Razorpay's callback at `/api/razorpay`.
+
