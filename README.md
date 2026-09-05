@@ -14,7 +14,6 @@ Creators can connect their Razorpay credentials and receive direct financial sup
 
 
 ## Features
-
 - Public landing page with links to login and the about page.
 - GitHub authentication through NextAuth.
 - Automatic user creation after a user's first successful GitHub sign-in.
