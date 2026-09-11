@@ -13,6 +13,7 @@ The application uses the Next.js App Router. Creator profiles and payment record
 Creators can connect their Razorpay credentials and receive direct financial support from their fanbase. Payment orders are created using the creator's Razorpay credentials and verified by the server before a contribution is marked as complete.
 
 
+
 ## Features
 - Public landing page with links to login and the about page.
 - GitHub authentication through NextAuth.
